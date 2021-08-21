@@ -5,6 +5,7 @@
 *:focus {
   outline: none;
 }
+
 body {
   font-family: Arial;
   background-image: url(/img/login.png);
