@@ -41,6 +41,12 @@ body {
   margin-bottom: 10px;
 }
 
+.isInvalid {
+  background-color: pink;
+  border-color: #a33939;
+  border-width: medium;
+}
+
 input {
   text-align: center;
   background-color: skyblue;
