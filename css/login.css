@@ -118,3 +118,12 @@ input:focus {
 .g-signin2 > div{
   margin: 0 auto;
 }
+
+.fb-login-button {
+  width: 100%;
+  text-align: center;
+}
+
+.fb-login-button > div {
+  margin: 0 auto;
+}
