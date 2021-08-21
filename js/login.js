@@ -9,16 +9,16 @@ function verificar() {
       if (pass.value.trim() === "") {     //If para evaluar el caso en que ambos usuario y contraseña están vacíos.
         pass.classList.add("isInvalid");
       }
-      else{
+      else{                               //Else para asegurarme de que si el pass esta correcto, no quede en rojo.
         pass.classList.remove("isInvalid");
     }
     user.classList.add("isInvalid"); //Agregamos la clase IsInvalid que le da los detalles visuales de error.
 
     alert.innerHTML = "Por favor ingrese usuario y contraseña válidos."; //le ponemos el texto al cartelito
-    alert.style.display = "block"; //chan! mostramos el cartelito
+    alert.style.display = "block"; //Despliega el cartel de alerta
   } 
 
-  else if(pass.value.trim() === ""){                //El elseif es la mejor opcion que se me ocurrio para curbrir los 3 casos restantes al de los 2 campos llenos
+  else if(pass.value.trim() === ""){      //
     if (user.value.trim() === "") {
         user.classList.add("isInvalid");
       } 
