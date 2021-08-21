@@ -1,53 +1,103 @@
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
+<!-- Plantilla de Login realizada por: Tushar Sonawane en: https://codepen.io/Tushkiz/pen/xqfsy/ -->
 <html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <title>eMercado - Todo lo que busques está aquí</title>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <title>eMercado - Todo lo que busques está aquí</title>
+    <!-- Bootstrap core CSS -->
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <style>
-    html, body{
-      height: 100%;
-    }
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="/css/login.css" rel="stylesheet" type="text/css" />
+    <style>
+      .isInvalid {
+        background-color: pink;
+        border-color: #a33939;
+        border-width: medium;
+      }
+    </style>
+    <meta name="google-signin-scope" content="profile email" />
+    <meta
+      name="google-signin-client_id"
+      content="631899677799-b5pbnsju1hgrktuoq3io4ja7kottn6j3.apps.googleusercontent.com"
+    />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </head>
 
-    body {
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-align: center;
-      align-items: center;
-      padding-top: 40px;
-      padding-bottom: 40px;
-      background-color: #f5f5f5;
-    }
+  <body class="text-center">
+    <div id="fb-root"></div>
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v11.0&appId=1480371208989919&autoLogAppEvents=1"
+      nonce="0QudcfBN"
+    ></script>
+    <div class="login">
+      <div class="login-screen">
+        <div class="app-title">
+          <h1>Iniciar sesión</h1>
+        </div>
 
-    .signin {
-      width: 100%;
-      max-width: 330px;
-      padding: 15px;
-      margin: auto;
-    }
-  </style>
-</head>
+        <div class="login-form">
+          <div class="control-group">
+            <input
+              type="text"
+              class="login-field"
+              value=""
+              placeholder="Usuario"
+              id="login-name"
+            />
+            <label class="login-field-icon fui-user" for="login-name"></label>
+          </div>
 
-<body class="text-center">
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 08/08/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+          <div class="control-group">
+            <input
+              type="password"
+              class="login-field"
+              value=""
+              placeholder="Contraseña"
+              id="login-pass"
+            />
+            <label class="login-field-icon fui-lock" for="login-pass"></label>
+          </div>
+          <span id="alert"></span><br />
+
+          <a class="btn btn-primary btn-large btn-block" onclick="verificar();"
+            >Ingresar</a
+          >
+          <a class="login-link" href="#">¿Perdió su contraseña?</a><br />
+        </div>
+        <div
+          class="g-signin2"
+          data-onsuccess="onSignIn"
+          data-theme="dark"
+          data-width="250"
+          data-height="40"
+          data-longtitle="true"
+        ></div>
+        <br />
+        <div
+          class="fb-login-button"
+          data-width="250"
+          data-size="large"
+          data-button-type="login_with"
+          data-layout="default"
+          data-auto-logout-link="false"
+          data-use-continue-as="false"
+          data-onlogin="facebook();"
+        ></div>
+      </div>
     </div>
-  </div>
 
-  <script src="js/init.js"></script>
-  <script src="js/login.js"></script>
-</body>
+    <!--<script src="js/init.js"></script>-->
+    <script src="js/login.js"></script>
+    <script src="/js/google-facebook.js"></script>
+  </body>
 </html>
