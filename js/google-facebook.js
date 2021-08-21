@@ -15,7 +15,7 @@ window.fbAsyncInit = function() {          // Función necesaria para el inicio 
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-   function onSignIn(googleUser) {                            //Funcion de inicio de sesión de Google.
+function onSignIn(googleUser) {                            //Funcion de inicio de sesión de Google.
     // Useful data for your client-side scripts:
     
     var profile = googleUser.getBasicProfile();
