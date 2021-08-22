@@ -1,20 +1,3 @@
-window.fbAsyncInit = function() {          // Función necesaria para el inicio de sesión con Facebook.
-    FB.init({
-      appId            : '1480371208989919',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v11.0'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
 function onSignIn(googleUser) {                            //Funcion de inicio de sesión de Google.
     // Useful data for your client-side scripts:
     
@@ -38,3 +21,22 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
     location.href = "index.html";
    
   }
+
+
+
+  window.fbAsyncInit = function() {          // Función necesaria para el inicio de sesión con Facebook.
+    FB.init({
+      appId            : '1480371208989919',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v11.0'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
