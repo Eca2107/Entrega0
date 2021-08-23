@@ -10,7 +10,7 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
     console.log("Email: " + profile.getEmail());*/
     let usuario = {};
     usuario.nombre = profile.getName();
-    usuario.estado = "conectado";
+    usuario.estado = "online";
     //--------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
     sessionStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Session Storage

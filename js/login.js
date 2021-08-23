@@ -35,7 +35,7 @@ function verificar() {
     //Más adelante voy a implementar un boton de recordarme, en este caso te recuerda siempre, en todos los casos
     //Y luego con el botón de desconectar y el de recordarme va a quedar totalmente funcional, chiche diría Fer
     usuario.nombre = user.value;
-    usuario.estado = "conectado";
+    usuario.estado = "online";
     //---------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
     sessionStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Session Storage
@@ -50,7 +50,7 @@ function verificar() {
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {        //Si el usuario ya habia iniciado sesion anteriormente
     let usuario = JSON.parse( localStorage.getItem("usuario"));     // esta parte del codigo lo vuelve a redireccionar al 
-    if (usuario.estado=='conectado'){                               // index.html sin tenes que volverse a loguear
+    if (usuario.estado=='online'){                               // index.html sin tenes que volverse a loguear
         location.href="index.html";
     }
 });
