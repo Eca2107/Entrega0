@@ -45,18 +45,24 @@
     <div class="container">
       <div class="row">
           <div class="col text-right">
-              <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-                  <label class="btn btn-light active" id="sortAsc" >
-                      <input type="radio" name="options" autocomplete="off" checked><i class="fas fa-sort-amount-up mr-1"></i>Precio
-                  </label>
-                  <label class="btn btn-light" id="sortDesc" >
-                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Precio
-                    </label>
-                  <label class="btn btn-light" id="sortByCount" >
-                      <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Relevancia</label>
+            <div class="btn-group">
+              <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Ordenar por: 
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" style="width: 90%;">
+                <label class="btn btn-light" id="sortAsc" style="width: 100%;">
+                  <input type="radio" name="options" autocomplete="off" checked hidden><i class="fas fa-sort-amount-up mr-1"></i>A-Z   
+              </label><br>
+              <label class="btn btn-light" id="sortDesc" style="width: 100%;" >
+                  <input type="radio" name="options" autocomplete="off" hidden><i class="fas fa-sort-amount-down mr-1"></i>Z-A   
+              </label><br>
+              <label class="btn btn-light" id="sortByCount" style="width: 100%;">
+                  <input type="radio" name="options" autocomplete="off" hidden><i class="fas fa-sort-amount-down mr-1"></i>Relevancia
+              </label>
               </div>
+            </div>
           </div>
-      </div>
+      </div><br>
       <div class="row justify-content-end">
         <div class="col-md-6"></div>
           <div class="col-md-6 col-sm-12 mb-1 container">
