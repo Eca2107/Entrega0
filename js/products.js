@@ -1,12 +1,56 @@
+const ORDER_ASC_BY_PRICE = "Menor precio";
+const ORDER_DESC_BY_PRICE = "Mayor precio";
+const ORDER_BY_RELEVANCE = "Relevancia"; 
 let productsArray = [];
+let sortCriteria = undefined;
+let contadorMin = undefined;
+let contadorMax = undefined; 
+
+function sortProducts(criterio, array){  // Función que me devuelve el arreglo ordenado por un criterio dado
+    let resultado = [];
+    if(criterio === ORDER_ASC_BY_PRICE){
+        resultado = array.sort(function(a,b){
+            let aCost = parseInt(a.cost);
+            let bCost = parseInt(b.cost);
+
+            if(aCost > bCost){return 1;}
+            if(aCost < bCost){return -1;}
+
+            return 0;
+        });
+    }   else if(criterio === ORDER_DESC_BY_PRICE){
+        resultado = array.sort(function(a,b){
+            let aCost = parseInt(a.cost);
+            let bCost = parseInt(b.cost);
+
+            if(aCost > bCost){return -1;}
+            if(aCost < bCost){return 1;}
+
+            return 0;
+        });
+    }   else if(criterio === ORDER_BY_RELEVANCE){
+        resultado = array.sort(function(a,b){
+            let aRel = parseInt(a.soldCount);
+            let bRel = parseInt(b.soldCount);
+
+            if(aRel > bRel){return -1;}
+            if(aRel < bRel){return 1;}
+
+            return 0;
+        });
+    }
+    return resultado;
+}
+
+//---------------------------------> De aquí en adelante es la funcion de insertar los objetos del JSON
 
 //Funcion que itera los objetos del JSON para crear el div correspondiente al listado 
-
 function showProductsList(array){
 
     let htmlContentToAppend = "";
     for(product of productsArray){
-
+        if (((contadorMin == undefined) || (contadorMin != undefined && parseInt(product.cost) >= contadorMin)) &&
+            ((contadorMax == undefined) || (contadorMax != undefined && parseInt(product.cost) <= contadorMax))){
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action">
             <div class="row">
@@ -31,7 +75,20 @@ function showProductsList(array){
         document.getElementById("productos").innerHTML = htmlContentToAppend;
         
     }
+}
     hideSpinner();
+}
+
+function sortAndShowProducts(criterio, prodArray){
+    sortCriteria = criterio;
+    
+    if(prodArray != undefined){
+        productsArray = prodArray;
+    }
+
+    productsArray = sortProducts(sortCriteria,productsArray);
+
+    showProductsList();
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -42,10 +99,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCTS_URL).then(function(resultObj){
         if (resultObj.status === "ok")
         {
-            productsArray = resultObj.data;
-            //Muestro las productos ordenados
-            showProductsList(productsArray);
+            sortAndShowProducts(ORDER_ASC_BY_PRICE,resultObj.data)
         }
     });
 
+    document.getElementById("sortAsc").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_ASC_BY_PRICE);
+    })
+
+    document.getElementById("sortDesc").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_DESC_BY_PRICE);
+    })
+
+    document.getElementById("sortByRel").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_BY_RELEVANCE);
+    })
+
+    
 });
