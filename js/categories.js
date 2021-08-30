@@ -10,18 +10,21 @@ function sortCategories(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)
     {
+        document.getElementById("boton").innerHTML = "Ordenar por: A-Z";
         result = array.sort(function(a, b) {
             if ( a.name < b.name ){ return -1; }
             if ( a.name > b.name ){ return 1; }
             return 0;
         });
     }else if (criteria === ORDER_DESC_BY_NAME){
+        document.getElementById("boton").innerHTML = "Ordenar por: Z-A";
         result = array.sort(function(a, b) {
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
     }else if (criteria === ORDER_BY_PROD_COUNT){
+        document.getElementById("boton").innerHTML = "Ordenar por: Cantidad";
         result = array.sort(function(a, b) {
             let aCount = parseInt(a.productCount);
             let bCount = parseInt(b.productCount);
@@ -85,7 +88,9 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
-            sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
+            currentCategoriesArray = resultObj.data;
+            //Muestro las productos ordenados
+            showCategoriesList(currentCategoriesArray);
         }
     });
 
@@ -107,8 +112,18 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         minCount = undefined;
         maxCount = undefined;
+        currentSortCriteria = undefined;
+        document.getElementById("boton").innerHTML = "Ordenar por:"
 
-        showCategoriesList();
+        getJSONData(CATEGORIES_URL).then(function(resultObj){
+            if (resultObj.status === "ok"){
+                currentCategoriesArray = resultObj.data;
+                //Muestro las productos ordenados
+                showCategoriesList(currentCategoriesArray);
+            }
+        });
+
+        
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
