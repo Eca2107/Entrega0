@@ -38,7 +38,6 @@ function verificar() {
     usuario.estado = "online";
     //---------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
-    sessionStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Session Storage
     location.href = "index.html";                              //Si todo esta correcto redirecciono a index.html
   }
 
@@ -49,14 +48,17 @@ document.addEventListener("keypress", (event) => {
   if(event.key == "Enter"){
     verificar();
   }
-})
+});
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {        //Si el usuario ya habia iniciado sesion anteriormente
     let usuario = JSON.parse( localStorage.getItem("usuario"));     // esta parte del codigo lo vuelve a redireccionar al 
-    if (usuario.estado=='online'){                               // index.html sin tenes que volverse a loguear
+    /*if (usuario.estado=='online'){                               // index.html sin tenes que volverse a loguear
         location.href="index.html";
+    }*/
+    if(usuario !== null){
+      location.href = "index.html";
     }
 });
