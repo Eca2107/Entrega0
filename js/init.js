@@ -48,22 +48,23 @@ var getJSONData = function (url) {
 
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    
-  });
+  auth2.signOut().then(function () {});
 }
 
 function onLoad() {
-  gapi.load('auth2', function() {
+  gapi.load("auth2", function () {
     gapi.auth2.init();
   });
 }
 
-function desconectar(){
-  
+function desconectar() {
   localStorage.clear();
   location.href = "login.html";
-  signOut();  
+  signOut();
+}
+
+function myprofile(){
+  location.href = "my-profile.html";
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -77,7 +78,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
     location.href = "#";
   }
 
-  document.getElementById("my-profile").innerHTML =
-    `<i class="bi bi-person">  </i>` +
-    usuario.nombre;
+  if (usuario.img != undefined) {
+    document.getElementById("my-profile").innerHTML =
+      `<img src="${usuario.img}" referrerpolicy="no-referrer" style="width: 25px;"> `+ ` ` + usuario.nombre;
+  } else {
+    document.getElementById("my-profile").innerHTML =
+      `<i class="bi bi-person">  </i>` + usuario.nombre;
+  }
 });

@@ -11,13 +11,14 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
     let usuario = {};
     usuario.nombre = profile.getName();
     usuario.estado = "online";
+    usuario.img = profile.getImageUrl();
     //--------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
   
 
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
-    console.log("ID Token: " + id_token);
+    //console.log("ID Token: " + id_token);
     location.href = "index.html";
    
   }
