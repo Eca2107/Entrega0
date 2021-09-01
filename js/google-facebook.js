@@ -13,7 +13,7 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
     usuario.estado = "online";
     //--------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
-    sessionStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Session Storage
+  
 
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
