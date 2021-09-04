@@ -52,6 +52,7 @@ function sortProducts(criteria, array) {
 //---------------------------------> De aquí en adelante es la funcion de insertar los objetos del JSON
 
 //Funcion que itera los objetos del JSON para crear el div correspondiente al listado
+
 function showProductsList() {
   let htmlContentToAppend = "";
   for (product of currentProductsArray) {
@@ -100,8 +101,9 @@ function showProductsList() {
         </div>
         `;
 
-      document.getElementById("productos").innerHTML = htmlContentToAppend;
+      
     }
+    document.getElementById("productos").innerHTML = htmlContentToAppend;
   }
   hideSpinner();
 }

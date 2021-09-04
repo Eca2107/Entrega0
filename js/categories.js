@@ -109,7 +109,7 @@ function sortAndShowCategories(sortCriteria, categoriesArray) {
 
   //Muestro las categorías ordenadas
   showCategoriesList();
-};
+}
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
           currentCategoriesArray = resultObj.data;
           //Muestro las productos ordenados
-          showCategoriesList(currentCategoriesArray);
+          showCategoriesList();
         }
       });
     });
