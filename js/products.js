@@ -2,6 +2,7 @@ const ORDER_ASC_BY_PRICE = "Menor precio";
 const ORDER_DESC_BY_PRICE = "Mayor precio";
 const ORDER_BY_RELEVANCE = "Relevancia";
 let currentProductsArray = [];
+let filteredProducts = [];
 let currentSortCriteria = undefined;
 let contadorMin = undefined;
 let contadorMax = undefined;
@@ -49,13 +50,13 @@ function sortProducts(criteria, array) {
     return result;
   }
   
-//---------------------------------> De aquí en adelante es la funcion de insertar los objetos del JSON
+//--------------------------> De aquí en adelante es la funcion de insertar los objetos del JSON
 
 //Funcion que itera los objetos del JSON para crear el div correspondiente al listado
 
-function showProductsList() {
+function showProductsList(array) {
   let htmlContentToAppend = "";
-  for (product of currentProductsArray) {
+  for (product of array) {
     if (
         (contadorMin == undefined ||
           (contadorMin != undefined &&
@@ -121,8 +122,18 @@ function sortAndShowProducts(sortCriteria, productsArray) {
     );
   
     //Muestro los productos ordenados
-    showProductsList();
+    showProductsList(currentProductsArray);
   }
+
+
+function filtro(){
+  let busqueda = document.getElementById("search").value;
+  
+    let filteredProducts = currentProductsArray.filter( product => {
+      return product.name.toLowerCase().indexOf(busqueda.toLowerCase()) > -1;
+    })
+    showProductsList(filteredProducts);
+}
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -133,8 +144,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (resultObj.status === "ok") {
       currentProductsArray = resultObj.data;
       //Muestro las productos ordenados
-      showProductsList();
+      showProductsList(currentProductsArray);
     }
+  });
+
+  document.getElementById("search").addEventListener("keyup", () => {
+    filtro();
   });
 
   document.getElementById("sortAsc").addEventListener("click", function () {
@@ -164,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
           currentProductsArray = resultObj.data;
           //Muestro las productos ordenados
-          showProductsList();
+          showProductsList(currentProductsArray);
         }
       });
     });
@@ -189,6 +204,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         contadorMax = undefined;
       }
 
-      showProductsList();
+      showProductsList(currentProductsArray);
     });
 });
