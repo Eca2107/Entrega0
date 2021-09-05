@@ -2,6 +2,7 @@ const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
 var currentCategoriesArray = [];
+let filteredCategories = [];
 var currentSortCriteria = undefined;
 var minCount = undefined;
 var maxCount = undefined;
@@ -49,10 +50,10 @@ function sortCategories(criteria, array) {
   return result;
 }
 
-function showCategoriesList() {
+function showCategoriesList(array) {
   let htmlContentToAppend = "";
-  for (let i = 0; i < currentCategoriesArray.length; i++) {
-    let category = currentCategoriesArray[i];
+  for (let i = 0; i < array.length; i++) {
+    let category = array[i];
 
     if (
       (minCount == undefined ||
@@ -108,7 +109,16 @@ function sortAndShowCategories(sortCriteria, categoriesArray) {
   );
 
   //Muestro las categorías ordenadas
-  showCategoriesList();
+  showCategoriesList(currentCategoriesArray);
+}
+
+function filtro() {
+  let busqueda = document.getElementById("search").value;
+
+  filteredCategories = currentCategoriesArray.filter((category) => {
+    return category.name.toLowerCase().indexOf(busqueda.toLowerCase()) > -1;
+  });
+  showCategoriesList(filteredCategories);
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -121,6 +131,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
       //Muestro las productos ordenados
       showCategoriesList(currentCategoriesArray);
     }
+  });
+
+  document.getElementById("search").addEventListener("keyup", () => {
+    filtro();
+  });
+
+  document.getElementById("search").addEventListener("mouseover", () => {
+    filtro();
   });
 
   document.getElementById("sortAsc").addEventListener("click", function () {
@@ -140,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     .addEventListener("click", function () {
       document.getElementById("rangeFilterCountMin").value = "";
       document.getElementById("rangeFilterCountMax").value = "";
+      document.getElementById("search").value = "";
 
       minCount = undefined;
       maxCount = undefined;
@@ -150,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
           currentCategoriesArray = resultObj.data;
           //Muestro las productos ordenados
-          showCategoriesList();
+          showCategoriesList(currentCategoriesArray);
         }
       });
     });
@@ -175,6 +194,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         maxCount = undefined;
       }
 
-      showCategoriesList();
+      showCategoriesList(currentCategoriesArray);
     });
 });

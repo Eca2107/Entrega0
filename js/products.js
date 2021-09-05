@@ -125,7 +125,7 @@ function sortAndShowProducts(sortCriteria, productsArray) {
 function filtro() {
   let busqueda = document.getElementById("search").value;
 
-  let filteredProducts = currentProductsArray.filter((product) => {
+  filteredProducts = currentProductsArray.filter((product) => {
     return product.name.toLowerCase().indexOf(busqueda.toLowerCase()) > -1;
   });
   showProductsList(filteredProducts);
