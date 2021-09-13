@@ -43,9 +43,9 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
   };
 
   FB.api(
-    "/{person-id}/",
-    let usuario = {};
+    "/{person-id}/",    
     function (response) {
+      let usuario = {};
       if (response && !response.error) {
         
       usuario.nombre = "/{person-id}/name";
