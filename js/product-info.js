@@ -119,7 +119,7 @@ document.getElementById("enviar").addEventListener("click", () => {
     document.getElementById("productComment").insertAdjacentHTML("beforeend", htmlContentToAppend);
     usuario.comment = "comento";
     comments.push({
-      "score": stars(puntuacion),
+      "score": puntuacion,
       "description": comentarioEnviado,
       "user": usuario.nombre,
       "dateTime": fecha
