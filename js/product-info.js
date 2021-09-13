@@ -63,7 +63,7 @@ document.getElementById("enviar").addEventListener("click", () => {
   else if(usuario.comment == "comento"){
     Swal.fire({
       icon: 'error',
-      title: 'No te hagas el vivo',
+      title: 'No te haga el vivo',
       text: 'Solo se puede enviar una reseña por usuario, queres poner otra, comprate otro auto.',
     })
 
@@ -76,12 +76,13 @@ document.getElementById("enviar").addEventListener("click", () => {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sin miedo al exito'
+      confirmButtonText: 'Sin miedo al éxito',
+      cancelButtonText: 'Con miedo al éxito'
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
           'Posteado!',
-          'Su reseña que a nadie le importa ha sido posteada con éxito',
+          'Su reseña que a nadie le importa ha sido publicada con éxito',
           'success'
         );
         document
