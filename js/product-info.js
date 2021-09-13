@@ -1,6 +1,9 @@
 let productInfo = [];
-let comments = [];
 let productsArray = [];
+let comments = [];
+let usuario = JSON.parse(localStorage.getItem("usuario"));
+
+
 
 function showImagesGallery(array) {
   let htmlContentToAppend = "";
@@ -17,11 +20,9 @@ function showImagesGallery(array) {
   </a>
   </div>
         `;
-
-    
   }
   document.getElementById("productImagesGallery").innerHTML =
-      htmlContentToAppend;
+    htmlContentToAppend;
 }
 
 function stars(numStars) {
@@ -37,77 +38,124 @@ function stars(numStars) {
 }
 
 document.getElementById("enviar").addEventListener("click", () => {
-  /*Swal.fire({
-    title: 'Complete el captcha para continuar',
-    html: '<div id="recaptcha"></div>',
-    didOpen: () => {
-      grecaptcha.render('recaptcha', {
-        'sitekey': '6LdvplUUAAAAAK_Y5M_wR7s-UWuiSEdVrv8K-tCq'
-      })
-    },
-    preConfirm: function () {
-      if (grecaptcha.getResponse().length === 0) {
-        Swal.showValidationMessage(`Verifique que es un humano`)
-      }
-    }
-  })*/
-  document
-    .getElementById("commentTextArea")
-    .classList.add("animate__lightSpeedOutRight", "animate__animated");
-});
 
-function showRelatedProducts() {
   let htmlContentToAppend = "";
-
-  for (product of productInfo.relatedProducts) {
-    htmlContentToAppend +=
-      `
-      <div class="gallery">
-  <a target="_blank" href="products.html">
-    <img src="` +
-      productsArray[product].imgSrc +
-      `">
-  </a>
-  <div class="desc">` +
-      productsArray[product].name +
-      `</div>
-</div>
-      `;
+  let comentarioEnviado = document.getElementById("commentTextArea").value;
+  let star = document.getElementsByName("star");
+  let puntuacion = undefined;
+  let date = new Date();
+  let fecha = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+  
+  for (score of star) {
+     
+    if(score.checked == true){
+      puntuacion = score.value;
+    }
   }
-  document.getElementById("relatedProducts").innerHTML = htmlContentToAppend;
-}
+
+  if(comentarioEnviado == ""){
+    Swal.fire({
+      icon: 'error',
+      title: 'Hojaldre',
+      text: 'La reseña a enviar no puede estar vacía',
+    })
+  }
+  else if(usuario.comment == "comento"){
+    Swal.fire({
+      icon: 'error',
+      title: 'No te hagas el vivo',
+      text: 'Solo se puede enviar una reseña por usuario, queres poner otra, comprate otro auto.',
+    })
+
+  }
+  else { 
+    Swal.fire({
+      title: '¿Estás seguro pa?',
+      text: "Mirá que no vas a poder borrarlo después",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sin miedo al exito'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Posteado!',
+          'Su reseña que a nadie le importa ha sido posteada con éxito',
+          'success'
+        );
+        document
+        .getElementById("commentTextArea")
+        .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
+        document
+        .getElementById("enviar")
+        .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
+        document
+        .getElementById("estrellitas")
+        .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
+        document
+        .getElementById("reseña")
+        .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
+
+    htmlContentToAppend += `
+    <div class="container">
+      <div class="justify-content-between row"><span><h6><b>` +
+        usuario.nombre +
+        `:</b></h6>` +
+        stars(puntuacion) +
+        `</span><span class="text-muted font-weight-light">` +
+        fecha +
+        `</span>
+      </div>    
+      <div class="row justify-content-center" style="padding: 3%;">
+      ` +
+        comentarioEnviado +
+        `
+      </div>
+      <hr>
+      </div>
+    `
+  
+    document.getElementById("productComment").insertAdjacentHTML("beforeend", htmlContentToAppend);
+    usuario.comment = "comento";
+    comments.push({
+      "score": stars(puntuacion),
+      "description": comentarioEnviado,
+      "user": usuario.nombre,
+      "dateTime": fecha
+  })
+  localStorage.setItem("comments", JSON.stringify(comments));
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+      }
+    })
+    
+  }
+});
 
 function showComments(array) {
   let htmlContentToAppend = "";
 
   for (comment of array) {
     htmlContentToAppend +=
-      `<div class="row " style="padding: 2%;">
-      <div class="col">
-          
-          
-              <h6 class="mb-1"><b>` +
+      `
+    <div class="container">
+    <div class="justify-content-between row"><span><h6><b>` +
       comment.user +
-      `:</b></h6><div id="stars">` +
+      `:</b></h6>` +
       stars(parseInt(comment.score)) +
-      `</div>` +
-      `` +
-      `<div class="justify-content-end"
-<small class="font-weight-light"></p>` +
+      `</span> <span class="text-muted font-weight-light">` +
       comment.dateTime +
-      `</small></div>
-          </div><br>
-          <div class="d-flex w-100">
-          <p class="mb-1" style="padding-left: 5%;">` +
+      `</span>
+    </div>
+    
+    <div class="row justify-content-center" style="padding: 3%;">
+    ` +
       comment.description +
-      `</p>
-          
-          </div>
-
-      </div>
-  </div>
-  
-            `;
+      `
+    </div>
+    <hr>
+    </div>
+   `;
   }
   document.getElementById("productComment").innerHTML = htmlContentToAppend;
 }
@@ -119,6 +167,29 @@ document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(PRODUCT_INFO_URL).then(function (resultObj) {
     if (resultObj.status === "ok") {
       productInfo = resultObj.data;
+      getJSONData(PRODUCTS_URL).then(function (resultObj) {
+        let htmlContentToAppend = "";
+        if (resultObj.status === "ok") {
+          productsArray = resultObj.data;
+        }
+        for (product of productInfo.relatedProducts) {
+          htmlContentToAppend +=
+            `
+            <div class="gallery">
+        <a target="_blank" href="products.html">
+          <img src="` +
+            productsArray[product].imgSrc +
+            `">
+        </a>
+        <div class="desc">` +
+            productsArray[product].name +
+            `</div>
+      </div>
+            `;
+        }
+        document.getElementById("relatedProducts").innerHTML =
+          htmlContentToAppend;
+      });
 
       let productNameHTML = document.getElementById("productName");
       let productDescriptionHTML =
@@ -149,16 +220,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
   });
 
   getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function (resultObj) {
-    if (resultObj.status === "ok") {
-      comments = resultObj.data;
+    if (resultObj.status === "ok" && localStorage.getItem("comments") == undefined) {
+      localStorage.setItem("comments",JSON.stringify(resultObj.data));
     }
+    comments = JSON.parse(localStorage.getItem("comments"))
     showComments(comments);
-  });
-
-  getJSONData(PRODUCTS_URL).then(function (resultObj) {
-    if (resultObj.status === "ok") {
-      productsArray = resultObj.data;
-    }
-    showRelatedProducts();
   });
 });
