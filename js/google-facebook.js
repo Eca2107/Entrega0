@@ -25,7 +25,7 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
 
 
 
-  /*window.fbAsyncInit = function() {          // Función necesaria para el inicio de sesión con Facebook.
+  window.fbAsyncInit = function() {          // Función necesaria para el inicio de sesión con Facebook.
     FB.init({
       appId            : '1480371208989919',
       autoLogAppEvents : true,
@@ -39,35 +39,24 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));    
-    FB.api(
-      "/{person-id}/",
-      function (response) {
-        if (response && !response.error) {
-          let usuario = {};
-        usuario.nombre = /{person-id}/name;
-        usuario.estado = "online";
-        usuario.img = /{person-id}/picture;
-        //--------->
-        localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
-        location.href = "index.html"
-        }
-      }
-    );
+    
   };
 
   FB.api(
     "/{person-id}/",
+    let usuario = {};
     function (response) {
       if (response && !response.error) {
-        let usuario = {};
-      usuario.nombre = /{person-id}/name;
+        
+      usuario.nombre = "/{person-id}/name";
       usuario.estado = "online";
-      usuario.img = /{person-id}/picture;
+      usuario.img = "/{person-id}/picture";
       //--------->
       localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
       location.href = "index.html"
       }
     }
-  );*/
+  );
+
 
   

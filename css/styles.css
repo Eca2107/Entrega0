@@ -1,17 +1,20 @@
-.jumbotron, .card-body, .container, .site-header{
-    font-family: 'Raleway', serif !important;
+.jumbotron,
+.card-body,
+.container,
+.site-header {
+  font-family: "Raleway", serif !important;
 }
 
-.jumbotron .display-4{
-    font-weight: bold;
+.jumbotron .display-4 {
+  font-weight: bold;
 }
 
 .jumbotron {
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
+  background-color: #53c0fb;
+  background: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -41,7 +44,7 @@
   text-shadow: 1px 1px 2px grey;
 }
 
-.jumbotron .lead{
+.jumbotron .lead {
   font-size: 38px;
 }
 
@@ -51,12 +54,12 @@ footer {
 }
 
 footer p {
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-header a {
   color: white;
-  transition: ease-in-out color .15s;
+  transition: ease-in-out color 0.15s;
 }
 
 .light-text {
@@ -67,15 +70,15 @@ footer p {
   color: black;
 }
 
-.dropzone{
-  border: 2px dashed #0087F7;
+.dropzone {
+  border: 2px dashed #0087f7;
   border-radius: 5px;
   background: white;
 }
 
-.alert{
+.alert {
   position: fixed;
-  top:80px;
+  top: 80px;
   width: 50%;
   left: 50%;
   transform: translate(-50%, 0);
@@ -86,7 +89,7 @@ footer p {
   position: relative;
   width: 64px;
   height: 64px;
-  top:50%;
+  top: 50%;
   left: 50%;
 }
 .lds-ring div {
@@ -119,13 +122,13 @@ footer p {
   }
 }
 
-#spinner-wrapper{
+#spinner-wrapper {
   position: fixed;
-  background-color: rgba(0,0,0,0.5);
-  width:100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
   height: 100%;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   z-index: 1021;
   display: none;
 }
@@ -139,3 +142,112 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+.zoom {
+  transition: transform 0.4s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(2.2);
+  position: relative;
+  display: block;
+  z-index: 999;
+}
+
+.zoom1 {
+  transition: transform 0.4s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom1:hover {
+  transform: scale(1.5);
+  position: relative;
+  display: block;
+  z-index: 999;
+}
+
+div.gallery {
+  margin: 5px;
+  border: 1px solid #ccc;
+  float: left;
+  width: 250px;
+  transition: transform 0.4s;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+  transform: scale(1.5);
+  position: relative;
+  display: block;
+  z-index: 999;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+}
+
+div.stars {
+  width: auto;
+  display: inline-block;
+}
+
+input.star {
+  display: none
+}
+
+label.star {
+  float: right;
+  padding: 10px;
+  font-size: 25px;
+  color: #4A148C;
+  transition: all .2s
+}
+
+input.star:checked~label.star:before {
+  content: '\f005';
+  color: #FD4;
+  transition: all .25s
+}
+
+input.star-5:checked~label.star:before {
+  color: #FFD700;
+  text-shadow: 0 0 10px #FFD700;
+}
+
+input.star-1:checked~label.star:before {
+  color: #F62
+}
+
+label.star:hover {
+  transform: rotate(-15deg) scale(1.5)
+}
+
+label.star:before {
+  content: '\f006';
+  font-family: FontAwesome
+}
+
+.border-color{
+  border: 1px solid skyblue;
+}
+.border-color .form-control:focus{
+  border: 1px solid #ba68c8;
+    box-shadow: 0 0 0 0.2rem skyblue;
+}
+
+/*:root {
+  --animate-duration: 800ms;
+  --animate-delay: 1s;
+}*/
+
+/* #recaptcha > div {
+  margin: 0 auto .5em;
+} */

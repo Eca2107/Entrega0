@@ -65,7 +65,8 @@ function showProductsList(array) {
     ) {
       htmlContentToAppend +=
         `
-        <div class="list-group-item list-group-item-action">
+        <a href="product-info.html" class="list-group-item list-group-item-action">
+        
             <div class="row">
                 <div class="col-3">
                     <img src="` +
@@ -98,11 +99,13 @@ function showProductsList(array) {
 
                 </div>
             </div>
-        </div>
+        
+        </a>
         `;
     }
-    document.getElementById("productos").innerHTML = htmlContentToAppend;
+    
   }
+  document.getElementById("productos").innerHTML = htmlContentToAppend;
   hideSpinner();
 }
 
