@@ -39,24 +39,26 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));    
+
+    FB.api(
+      "/{person-id}/",    
+      function (response) {
+        let usuario = {};
+        if (response && !response.error) {
+          
+        usuario.nombre = "/{person-id}/name";
+        usuario.estado = "online";
+        usuario.img = "/{person-id}/picture";
+        //--------->
+        localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
+        location.href = "index.html"
+        }
+      }
+    );
     
   };
 
-  FB.api(
-    "/{person-id}/",    
-    function (response) {
-      let usuario = {};
-      if (response && !response.error) {
-        
-      usuario.nombre = "/{person-id}/name";
-      usuario.estado = "online";
-      usuario.img = "/{person-id}/picture";
-      //--------->
-      localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
-      location.href = "index.html"
-      }
-    }
-  );
+  
 
 
   
