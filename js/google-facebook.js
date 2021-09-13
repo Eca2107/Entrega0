@@ -23,7 +23,40 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
    
   }
 
+/*
+ window.fbAsyncInit = function() {          // Función necesaria para el inicio de sesión con Facebook. no pude con esto xD
+    FB.init({
+      appId            : '1480371208989919',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v11.0'
+    });
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));    
 
+    FB.api(
+      "/{person-id}/",    
+      function (response) {
+        let usuario = {};
+        if (response && !response.error) {
+          
+        usuario.nombre = "/{person-id}/name";
+        usuario.estado = "online";
+        usuario.img = "/{person-id}/picture";
+        //--------->
+        localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
+        location.href = "index.html"
+        }
+      }
+    );
+    
+  };
+  */
 
   
 
