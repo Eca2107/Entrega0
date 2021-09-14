@@ -46,14 +46,13 @@ document.getElementById("enviar").addEventListener("click", () => {
   let date = new Date();
   let fecha = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
   
-  for (score of star) {
-     
+  for (score of star) {     
     if(score.checked == true){
       puntuacion = score.value;
     }
   }
 
-  if(comentarioEnviado == ""){
+  if(comentarioEnviado == ""){      // este codigo esta lleno de CHICHES :D 
     Swal.fire({
       icon: 'error',
       title: 'Hojaldre',
@@ -100,7 +99,7 @@ document.getElementById("enviar").addEventListener("click", () => {
 
     htmlContentToAppend += `
     <div class="container">
-      <div class="justify-content-between row"><span><h6><b>` +
+      <div class="row justify-content-between"><span><h6><b>` +
         usuario.nombre +
         `:</b></h6>` +
         stars(puntuacion) +
@@ -148,11 +147,12 @@ function showComments(array) {
       comment.dateTime +
       `</span>
     </div>
-    
+    <div class="break" style="word-break: break-all;">
     <div class="row justify-content-center" style="padding: 3%;">
     ` +
       comment.description +
       `
+    </div>
     </div>
     <hr>
     </div>
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (resultObj.status === "ok" && localStorage.getItem("comments") == undefined) {
       localStorage.setItem("comments",JSON.stringify(resultObj.data));
     }
-    comments = JSON.parse(localStorage.getItem("comments"))
+    comments = JSON.parse(localStorage.getItem("comments"));
     showComments(comments);
   });
 });
