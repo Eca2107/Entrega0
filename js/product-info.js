@@ -107,7 +107,7 @@ document.getElementById("enviar").addEventListener("click", () => {
         fecha +
         `</span>
       </div>    
-      <div class="row justify-content-center" style="padding: 3%;">
+      <div class="row justify-content-center" style="padding: 3%; word-break: break-all;">
       ` +
         comentarioEnviado +
         `

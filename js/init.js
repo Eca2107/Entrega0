@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   if (usuario == null) {
     location.href = "login.html";
   } else {
-    location.href = "#";
+    location.href = "#"
   }
 
   if (usuario.img != undefined) {
