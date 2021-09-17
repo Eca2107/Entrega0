@@ -43,26 +43,26 @@
       <div
         class="container d-flex flex-column flex-md-row justify-content-between"
       >
-        <a class="py-2 d-none d-md-inline-block" href="index.html"
-          ><i class="bi bi-house-door"></i> Inicio</a
+        <button class="btn btn-dark" onclick="location.href = 'index.html'">
+          <i class="bi bi-house-door"></i> Inicio
+        </button>
+        <button
+          class="btn btn-dark"
+          onclick="location.href = 'categories.html'"
         >
-        <a class="py-2 d-none d-md-inline-block" href="categories.html"
-          ><i class="bi bi-tags"></i> Categorías</a
-        >
-        <a class="py-2 d-none d-md-inline-block" href="products.html"
-          ><i class="bi bi-list-ul"></i> Productos</a
-        >
-        <a class="py-2 d-none d-md-inline-block" href="sell.html"
-          ><i class="bi bi-piggy-bank"></i> Vender</a
-        >
-        <a class="py-2 d-none d-md-inline-block" href="cart.html"
-          ><i class="bi bi-cart"></i> Mi carrito</a
-        >
+          <i class="bi bi-tags"></i> Categorías
+        </button>
+        <button class="btn btn-dark" onclick="location.href = 'products.html'">
+          <i class="bi bi-list-ul"></i> Productos
+        </button>
+        <button class="btn btn-dark" onclick="location.href = 'sell.html'">
+          <i class="bi bi-piggy-bank"></i> Vender
+        </button>
         <div class="btn-group">
           <button
             type="button"
             id="my-profile"
-            onclick="myprofile();"
+            onclick="location.href = 'my-profile.html';"
             class="btn btn-dark"
           >
             <i class="bi bi-person"></i>
@@ -82,10 +82,16 @@
           >
             <label
               class="btn btn-light bg-white"
-              onclick="myprofile();"
+              onclick="location.href = 'my-profile.html';"
               style="width: 100%"
-              ><i class="bi bi-person-circle" style="float: left"></i>Mi
-              Perfil</label
+              ><i class="bi bi-person-circle" style="float: left"></i> Mi
+              perfil</label
+            >
+            <label
+              class="btn btn-light bg-white"
+              onclick="location.href = 'cart.html';"
+              style="width: 100%"
+              ><i class="bi bi-cart" style="float: left"></i> Mi carrito</label
             >
             <div class="dropdown-divider"></div>
             <label
@@ -93,8 +99,8 @@
               onclick="desconectar();"
               id="logout"
               style="width: 100%"
-              ><i class="bi bi-box-arrow-right" style="float: left"></i
-              >Desconectar</label
+              ><i class="bi bi-box-arrow-right" style="float: left"></i>
+              Cerrar sesión</label
             >
           </div>
         </div>
@@ -149,7 +155,9 @@
             <div class="col" id="productComment"></div>
             <div class="col justify-content-center">
               <div class="row justify-content-center">
-                <h5 style="text-align: center" id="reseña">Enviar una reseña:</h5>
+                <h5 style="text-align: center" id="reseña">
+                  Enviar una reseña:
+                </h5>
               </div>
               <div class="container d-flex justify-content-center mt-200">
                 <div class="row">
@@ -211,6 +219,14 @@
               </div>
               <br />
               <div class="row justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  id="cancelar"
+                >
+                  Cancelar
+                </button>
+                <div style="width: 10px"></div>
                 <button
                   type="button"
                   class="btn btn-outline-primary"

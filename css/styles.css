@@ -177,7 +177,7 @@ div.gallery {
 
 div.gallery:hover {
   border: 1px solid #777;
-  transform: scale(1.5);
+  transform: scale(1.15);
   position: relative;
   display: block;
   z-index: 999;

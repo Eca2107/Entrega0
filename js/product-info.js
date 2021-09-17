@@ -37,6 +37,11 @@ function stars(numStars) {
   return stars;
 }
 
+document.getElementById("cancelar").addEventListener("click", () => {
+  document.getElementById("commentTextArea").value = "";
+  document.getElementsByName("star").forEach((estrella) => {if(estrella.checked == true){estrella.checked = false}});
+})
+
 document.getElementById("enviar").addEventListener("click", () => {
 
   let htmlContentToAppend = "";
@@ -95,6 +100,9 @@ document.getElementById("enviar").addEventListener("click", () => {
         .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
         document
         .getElementById("reseña")
+        .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
+        document
+        .getElementById("cancelar")
         .classList.add("animate__lightSpeedOutLeft", "animate__animated", "animate__delay-2s");
 
     htmlContentToAppend += `
@@ -176,15 +184,19 @@ document.addEventListener("DOMContentLoaded", function (e) {
         for (product of productInfo.relatedProducts) {
           htmlContentToAppend +=
             `
-            <div class="gallery">
+            <div class="gallery" onclick="location.href = 'products.html';">
         <a target="_blank" href="products.html">
           <img src="` +
             productsArray[product].imgSrc +
             `">
         </a>
-        <div class="desc">` +
+        <div class="desc"><h5><b>` +
             productsArray[product].name +
+            `</b></h5></div>
+            <div class="desc">` +
+            productsArray[product].description +
             `</div>
+
       </div>
             `;
         }
