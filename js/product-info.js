@@ -202,7 +202,7 @@ document.getElementById("enviar").addEventListener("click", () => {
           fecha +
           `</span>
       </div>    
-      <div class="row justify-content-center" style="padding: 3%; word-break: break-all;">
+      <div class="row justify-content-center" style="padding: 3%; word-break: break-word;">
       ` +
           comentarioEnviado +
           `
@@ -243,7 +243,7 @@ function showComments(array) {
       comment.dateTime +
       `</span>
     </div>
-    <div class="break" style="word-break: break-all;">
+    <div class="break" style="word-break: break-word;">
     <div class="row justify-content-center" style="padding: 3%;">
     ` +
       comment.description +
