@@ -155,18 +155,6 @@ a.custom-card:hover {
   z-index: 999;
 }
 
-.zoom1 {
-  transition: transform 0.4s; /* Animation */
-  margin: 0 auto;
-}
-
-.zoom1:hover {
-  transform: scale(1.5);
-  position: relative;
-  display: block;
-  z-index: 999;
-}
-
 div.gallery {
   margin: 5px;
   border: 1px solid #ccc;
@@ -227,12 +215,12 @@ input.star-1:checked~label.star:before {
 }
 
 label.star:hover {
-  transform: rotate(-15deg) scale(1.5)
+  transform: rotate(-15deg) scale(1.5);
 }
 
 label.star:before {
   content: '\f006';
-  font-family: FontAwesome
+  font-family: FontAwesome;
 }
 
 .border-color{
