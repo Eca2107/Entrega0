@@ -8,7 +8,7 @@ function showImagesGallery(array) {
 
   htmlContentToAppend +=
     `
-      <div id="carouselExampleCaptions" class="carousel slide carousel-fade" style="width: 90%" data-ride="carousel" data-keyboard="true" data-touch="true">
+      <div id="carouselExampleCaptions" class="carousel slide carousel-fade" style="width: 80%" data-ride="carousel" data-keyboard="true" data-touch="true">
       <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
