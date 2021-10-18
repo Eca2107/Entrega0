@@ -17,7 +17,7 @@
 
     <link
       rel="canonical"
-      href="https://getbootstrap.com/docs/4.3/examples/album/"
+      href="https://getbootstrap.com/docs/4.3.1/examples/album/"
     />
     <link
       href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
@@ -45,8 +45,10 @@
       }
     </style>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/cart.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/dropzone.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
@@ -54,18 +56,21 @@
       <div
         class="container d-flex flex-column flex-md-row justify-content-between"
       >
-        <button class="btn btn-dark" onclick="location.href = 'index.html'"
-          ><i class="bi bi-house-door"></i> Inicio</button
+        <button class="btn btn-dark" onclick="location.href = 'index.html'">
+          <i class="bi bi-house-door"></i> Inicio
+        </button>
+        <button
+          class="btn btn-dark"
+          onclick="location.href = 'categories.html'"
         >
-        <button class="btn btn-dark" onclick="location.href = 'categories.html'"
-          ><i class="bi bi-tags"></i> Categorías</button
-        >
-        <button class="btn btn-dark" onclick="location.href = 'products.html'"
-          ><i class="bi bi-list-ul"></i> Productos</button
-        >
-        <button class="btn btn-dark" onclick="location.href = 'sell.html'"
-          ><i class="bi bi-piggy-bank"></i> Vender</button
-        >
+          <i class="bi bi-tags"></i> Categorías
+        </button>
+        <button class="btn btn-dark" onclick="location.href = 'products.html'">
+          <i class="bi bi-list-ul"></i> Productos
+        </button>
+        <button class="btn btn-dark" onclick="location.href = 'sell.html'">
+          <i class="bi bi-piggy-bank"></i> Vender
+        </button>
         <div class="btn-group">
           <button
             type="button"
@@ -99,8 +104,7 @@
               class="btn btn-light bg-white"
               onclick="location.href = 'cart.html';"
               style="width: 100%"
-              ><i class="bi bi-cart" style="float: left"></i> Mi
-              carrito</label
+              ><i class="bi bi-cart" style="float: left"></i> Mi carrito</label
             >
             <div class="dropdown-divider"></div>
             <label
@@ -108,31 +112,122 @@
               onclick="desconectar();"
               id="logout"
               style="width: 100%"
-              ><i class="bi bi-box-arrow-right" style="float: left"></i
-              > Cerrar sesión</label
+              ><i class="bi bi-box-arrow-right" style="float: left"></i> Cerrar
+              sesión</label
             >
           </div>
         </div>
       </div>
     </nav>
-    <div class="container p-5">
-      <div
-        class="alert alert-danger"
-        role="alert"
-        style="position: relative; width: auto; top: 0"
-      >
-        <h4 class="alert-heading">¡A trabajar! :)</h4>
-        <p>
-          Esta sección corresponde a: Entrega 5 (Fecha de entrega: 17/10/2021) y
-          Entrega 7 (Fecha de entrega: 14/11/2021).
-        </p>
-        <hr />
-        <p class="mb-0">
-          Para saber qué debes hacer, fijate en la actividad en CREA
-          correspondiente a esta entrega.
-        </p>
+    <br />
+    <div class="card">
+      <div class="row">
+        <div class="col-md-8 cart">
+          <div class="title">
+            <div class="row">
+              <div class="col">
+                <h4>
+                  <i class="bi bi-cart" style="float: left"></i>&nbsp;
+                  <b>Mi carrito</b>
+                </h4>
+              </div>
+              <div
+                class="col align-self-center text-right text-muted"
+                id="cantItems"
+              ></div>
+            </div>
+          </div>
+          <br />
+          <div class="row" id="itemsCarrito"></div>
+          <br />
+          <div class="back-to-shop">
+            <label
+              class="text-muted btn"
+              onclick="location.href = 'products.html'"
+              >Back to shop</label
+            >
+          </div>
+        </div>
+        <div class="col-md-4 summary">
+          <div class="row">
+            <div class="col"><h6><b>Resumen del pedido</b></h6></div>
+            <div
+              id="tipoMoneda"
+              class="col"
+              style="text-align: right"
+              onclick="updateMoneda()"
+            >
+              Moneda:
+              <div class="custom-control custom-radio">
+                <input
+                  id="UYU"
+                  name="tipoMoneda"
+                  type="radio"
+                  class="custom-control-input"
+                  required=""
+                />
+                <label class="custom-control-label" for="UYU">UYU</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input
+                  id="USD"
+                  name="tipoMoneda"
+                  type="radio"
+                  class="custom-control-input"
+                  checked=""
+                  required=""
+                />
+                <label class="custom-control-label" for="USD">USD</label>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row" id="adenda"></div>
+          <hr />
+          <form>
+            <h6>ENVÍO</h6>
+            <p>Seleccione su tipo de envío</p>
+            <div class="input-group mb-3">
+              <select
+                class="custom-select"
+                id="inputGroupSelect01"
+                onchange="tipoDeEnvio();"
+              >
+                <option selected hidden>Tipo de envío...</option>
+                <option value="1">Standard (12 a 15 días)</option>
+                <option value="2">Express (5-8 días)</option>
+                <option value="3">Premium (2-5 días)</option>
+              </select>
+            </div>
+            <p id="tipoEnvio"></p>
+            <hr />
+          </form>
+          <div class="row" id="adendaFinal"></div>
+          <hr />
+          <div class="row"  id="total">
+            <div class="col">TOTAL PRICE</div>
+            <div class="col text-right" id="totalPrice"></div>
+          </div>
+          <button class="btn1" onclick="checkout();">CHECKOUT</button>
+          <hr />
+          <p>CÓDIGO DE DESCUENTO</p>
+          <div class="row">
+            <input
+              type="text"
+              style="width: 80%"
+              id="code"
+              placeholder="Enter your code"
+            /><label
+              class="btn btn-dark"
+              style="height: 39px"
+              onclick="discountCode()"
+              ><i class="bi bi-arrow-right-circle"></i
+            ></label>
+          </div>
+        </div>
       </div>
     </div>
+
     <div id="spinner-wrapper">
       <div class="lds-ring">
         <div></div>
@@ -145,7 +240,7 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/dropzone.js"></script>
     <script src="js/init.js"></script>
-    <script src="js/cart.js"></script>
+    <script src="js/cart3.js"></script>
     <script
       src="https://apis.google.com/js/platform.js?onload=onLoad"
       async
