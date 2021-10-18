@@ -237,7 +237,7 @@ function adenda() {
       <div class="row w-100">
       <div class="col">Descuento del 80%</div>
       <div class="col text-right"><b>`+
-      moneda + " -" + total*0.8.toFixed(2) +`</b></div>
+      moneda + " -" + (total*0.8).toFixed(2) +`</b></div>
       </div><br>
       <div class="row w-100">
       <div class="col">TOTAL PRICE</div>
@@ -287,7 +287,7 @@ function discountCode() {
     <div class="row w-100">
     <div class="col">Descuento del 80%</div>
     <div class="col text-right"><b>`+
-    moneda + " -" + total*0.8.toFixed(2)+`</b></div>
+    moneda + " -" + (total*0.8).toFixed(2)+`</b></div>
     </div><br>
     <div class="row w-100">
     <div class="col">TOTAL PRICE</div>
