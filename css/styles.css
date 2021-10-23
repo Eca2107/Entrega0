@@ -231,3 +231,36 @@ label.star:before {
     box-shadow: 0 0 0 0.2rem skyblue;
 }
 
+.site-header .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .site-header button:not(:first-child) {display: none;}
+  .site-header div:not(:first-child) {display: none;}
+  .site-header button.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .site-header.responsive {position: relative;}
+  .site-header.responsive button.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .site-header.responsive button {
+    float: center;
+    display: block;
+    text-align: center;
+  }
+  .site-header.responsive div {
+    float: center;
+    display: block;
+    text-align: center;
+    align-items: center;
+  }
+
+}

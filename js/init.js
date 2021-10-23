@@ -63,6 +63,14 @@ function desconectar() {
   signOut();
 }
 
+function responsive() {
+  var x = document.getElementById("topNav");
+  if (x.className === "site-header sticky-top py-1 bg-dark") {
+    x.className += " responsive";
+  } else {
+    x.className = "site-header sticky-top py-1 bg-dark";
+  }
+}
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.

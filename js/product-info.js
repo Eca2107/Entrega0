@@ -272,19 +272,19 @@ document.addEventListener("DOMContentLoaded", function (e) {
         for (product of productInfo.relatedProducts) {
           htmlContentToAppend +=
             `
-            <div class="gallery" onclick="location.href = 'products.html';">
-        <a target="_blank" href="products.html">
+            <div class="gallery">
+        <a href="products.html" class="list-group-item-action">
           <img src="` +
             productsArray[product].imgSrc +
             `">
-        </a>
+        
         <div class="desc"><h5><b>` +
             productsArray[product].name +
             `</b></h5></div>
             <div class="desc">` +
             productsArray[product].description +
             `</div>
-
+            </a>
       </div>
             `;
         }

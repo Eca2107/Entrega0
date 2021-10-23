@@ -6,6 +6,7 @@ let filteredProducts = [];
 let currentSortCriteria = undefined;
 let contadorMin = undefined;
 let contadorMax = undefined;
+let estiloMuestra = "";
 
 function sortProducts(criteria, array) {
   let result = [];
@@ -56,6 +57,12 @@ function sortProducts(criteria, array) {
 
 function showProductsList(array) {
   let htmlContentToAppend = "";
+  document.getElementsByName("estiloMuestra").forEach((element) => {
+    if (element.checked == true) {
+      estiloMuestra = element.id;
+    }
+  });
+
   for (product of array) {
     if (
       (contadorMin == undefined ||
@@ -63,38 +70,39 @@ function showProductsList(array) {
       (contadorMax == undefined ||
         (contadorMax != undefined && parseInt(product.cost) <= contadorMax))
     ) {
-      htmlContentToAppend +=
-        `
-        <a href="product-info.html" class="list-group-item list-group-item-action">
+      if (estiloMuestra == "lista") {
+        htmlContentToAppend +=
+          `
+          <a href="product-info.html" class="list-group-item list-group-item-action">
         
             <div class="row">
                 <div class="col-3">
                     <img src="` +
-        product.imgSrc +
-        `" alt="` +
-        product.description +
-        `" class="img-thumbnail">
+          product.imgSrc +
+          `" alt="` +
+          product.description +
+          `" class="img-thumbnail">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
                         <h2 class="mb-1">` +
-        product.name +
-        `</h2>
+          product.name +
+          `</h2>
                         <small class="h4"><small class="font-weight-light h4 ">` +
-        product.currency +
-        `</small>` +
-        ` ` +
-        `<small class="font-weight-bold h4">` +
-        product.cost +
-        `</small></small>
+          product.currency +
+          `</small>` +
+          ` ` +
+          `<small class="font-weight-bold h4">` +
+          product.cost +
+          `</small></small>
                     </div><br>
                     <div class="d-flex w-100 justify-content-between">
                     <p class="mb-1">` +
-        product.description +
-        `</p>
+          product.description +
+          `</p>
                     <small class="text-muted">` +
-        product.soldCount +
-        ` vendidos</small>
+          product.soldCount +
+          ` vendidos</small>
                     </div>
 
                 </div>
@@ -102,8 +110,42 @@ function showProductsList(array) {
         
         </a>
         `;
+      } else if (estiloMuestra == "grilla") {
+        htmlContentToAppend +=
+          `
+          <div class="col-md-4">
+          <a href="product-info.html" class="list-group-item-action">
+          <div class="card mb-4 shadow-sm">
+            <img src="` +
+          product.imgSrc +
+          `">
+            <div class="card-body">
+            <h2 class="mb-1 text-center">` +
+          product.name +
+          `</h2> 
+              <p class="card-text text-center">` +
+          product.description +
+          `</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="">
+                <small class="h4"><small class="font-weight-light h4 ">` +
+          product.currency +
+          `</small>` +
+          ` ` +
+          `<small class="font-weight-bold h4">` +
+          product.cost +
+          `</small></small>
+                </div>
+                <small class="text-muted">` +
+          product.soldCount +
+          ` vendidos</small>
+              </div>
+            </div>
+          </div>
+        </div></a>
+          `;
+      }
     }
-    
   }
   document.getElementById("productos").innerHTML = htmlContentToAppend;
   hideSpinner();

@@ -25,27 +25,31 @@
       href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <nav class="site-header sticky-top py-1 bg-dark">
+    <nav class="site-header sticky-top py-1 bg-dark" id="topNav">
       <div
         class="container d-flex flex-column flex-md-row justify-content-between"
       >
-        <button class="btn btn-dark" onclick="location.href = 'index.html'"
-          ><i class="bi bi-house-door"></i> Inicio</button
+        <button class="btn btn-dark" onclick="location.href = 'index.html'">
+          <i class="bi bi-house-door"></i> Inicio
+        </button>
+        <button
+          class="btn btn-dark"
+          onclick="location.href = 'categories.html'"
         >
-        <button class="btn btn-dark" onclick="location.href = 'categories.html'"
-          ><i class="bi bi-tags"></i> Categorías</button
-        >
-        <button class="btn btn-dark" onclick="location.href = 'products.html'"
-          ><i class="bi bi-list-ul"></i> Productos</button
-        >
-        <button class="btn btn-dark" onclick="location.href = 'sell.html'"
-          ><i class="bi bi-piggy-bank"></i> Vender</button
-        >
+          <i class="bi bi-tags"></i> Categorías
+        </button>
+        <button class="btn btn-dark" onclick="location.href = 'products.html'">
+          <i class="bi bi-list-ul"></i> Productos
+        </button>
+        <button class="btn btn-dark" onclick="location.href = 'sell.html'">
+          <i class="bi bi-piggy-bank"></i> Vender
+        </button>
         <div class="btn-group">
           <button
             type="button"
@@ -64,7 +68,7 @@
           >
             <span class="sr-only">Toggle Dropdown</span>
           </button>
-          <div
+          <p
             class="dropdown-menu dropdown-menu-right"
             style="width: min-content"
           >
@@ -79,20 +83,22 @@
               class="btn btn-light bg-white"
               onclick="location.href = 'cart.html';"
               style="width: 100%"
-              ><i class="bi bi-cart" style="float: left"></i> Mi
-              carrito</label
+              ><i class="bi bi-cart" style="float: left"></i> Mi carrito</label
             >
-            <div class="dropdown-divider"></div>
+            <span class="dropdown-divider"></span>
             <label
               class="btn btn-light bg-white"
               onclick="desconectar();"
               id="logout"
               style="width: 100%"
-              ><i class="bi bi-box-arrow-right" style="float: left"></i
-              > Cerrar sesión</label
+              ><i class="bi bi-box-arrow-right" style="float: left"></i> Cerrar
+              sesión</label
             >
-          </div>
+        </p>
         </div>
+        <button href="javascript:void(0);" class="icon btn btn-dark" onclick="responsive();">
+          <i class="bi bi-card-list"></i>
+        </button>
       </div>
     </nav>
     <div class="text-center p-4">
@@ -101,6 +107,21 @@
     </div>
     <div class="container">
       <div class="row">
+        <div
+          class="col text-left"
+          onclick="showProductsList(currentProductsArray);"
+        >
+          Ver los productos como: <br />
+          <label class="btn btn-light" for="grilla"
+            ><i class="bi bi-grid"></i> Grilla</label
+          >
+          <input type="radio" name="estiloMuestra" id="grilla" hidden checked />
+          <label class="btn btn-light" for="lista"
+            ><i class="bi bi-list"></i> Lista</label
+          >
+          <input type="radio" name="estiloMuestra" id="lista" hidden />
+        </div>
+
         <div class="col text-right">
           <div class="btn-group">
             <button
@@ -153,9 +174,12 @@
         </div>
       </div>
       <br />
-      <div class="row justify-content-end">
-        <div class="col-md-6">
-          <div class="input-group rounded" style="width: 300px">
+      <div class="row">
+        <div class="col text-left">
+          <div
+            class="input-group rounded"
+            style="width: auto; max-width: 300px"
+          >
             <span
               class="input-group-text border-0"
               style="background-color: white"
@@ -172,43 +196,45 @@
             />
           </div>
         </div>
-        <div class="col-md-6 col-sm-12 mb-1 container">
-          <div class="row container p-0 m-0">
+        <div class="col text-right">
+          <div class="row">
             <div class="col">
-              <p class="font-weight-normal text-right my-2">Precio</p>
-            </div>
-            <div class="col">
-              <input
-                class="form-control"
-                type="number"
-                placeholder="Min."
-                id="rangeFilterCountMin"
-              />
-            </div>
-            <div class="col">
-              <input
-                class="form-control"
-                type="number"
-                placeholder="Máx."
-                id="rangeFilterCountMax"
-              />
-            </div>
-            <div class="col-3 p-0">
-              <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="rangeFilterCount">
-                  Filtrar
-                </button>
-                <button class="btn btn-link btn-sm" id="clearRangeFilter">
-                  Limpiar
-                </button>
+              <div class="row justify-content-around">
+                <p class="font-weight-normal text-right my-2">Precio:</p>
+
+                <input
+                  class="form-control"
+                  type="number"
+                  placeholder="Min."
+                  id="rangeFilterCountMin"
+                  min="0"
+                  style="max-width: 100px"
+                />
+
+                <input
+                  class="form-control"
+                  type="number"
+                  placeholder="Máx."
+                  id="rangeFilterCountMax"
+                  min="0"
+                  style="max-width: 100px"
+                />
               </div>
+            </div>
+            <div class="btn-group" role="group">
+              <button class="btn btn-light btn-block" id="rangeFilterCount">
+                Filtrar
+              </button>
+              <button class="btn btn-light btn-sm" id="clearRangeFilter">
+                Limpiar
+              </button>
             </div>
           </div>
         </div>
       </div>
       <br />
-      <div class="row">
-        <div id="productos"></div>
+      <div class="album py-5 container">
+        <div id="productos" class="row"></div>
       </div>
       <footer class="text-muted bg-light">
         <div class="container">
