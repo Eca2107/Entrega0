@@ -118,7 +118,7 @@ function showProductsList(array) {
           <div class="card mb-4 shadow-sm">
             <img src="` +
           product.imgSrc +
-          `">
+          `" style="height: 60%;">
             <div class="card-body">
             <h2 class="mb-1 text-center">` +
           product.name +

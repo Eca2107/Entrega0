@@ -65,10 +65,10 @@ function desconectar() {
 
 function responsive() {
   var x = document.getElementById("topNav");
-  if (x.className === "site-header sticky-top py-1 bg-dark") {
+  if (x.className === "site-header bg-dark py-1 container text-center justify-content-between") {
     x.className += " responsive";
   } else {
-    x.className = "site-header sticky-top py-1 bg-dark";
+    x.className = "site-header bg-dark py-1 container text-center justify-content-between";
   }
 }
 //Función que se ejecuta una vez que se haya lanzado el evento de
