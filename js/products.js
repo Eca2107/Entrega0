@@ -115,10 +115,10 @@ function showProductsList(array) {
           `
           <div class="col-md-4">
           <a href="product-info.html" class="list-group-item-action">
-          <div class="card mb-4 shadow-sm">
+          <div class="card shadow-sm">
             <img src="` +
           product.imgSrc +
-          `" style="height: 60%;">
+          `" class="img-fluid">
             <div class="card-body">
             <h2 class="mb-1 text-center">` +
           product.name +
