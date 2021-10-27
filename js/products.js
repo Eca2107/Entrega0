@@ -70,7 +70,7 @@ function showProductsList(array) {
       (contadorMax == undefined ||
         (contadorMax != undefined && parseInt(product.cost) <= contadorMax))
     ) {
-      if (estiloMuestra == "lista") {
+      if (estiloMuestra == "lista" && screen.width > 800) {
         htmlContentToAppend +=
           `
           <a href="product-info.html" class="list-group-item list-group-item-action">
@@ -81,7 +81,7 @@ function showProductsList(array) {
           product.imgSrc +
           `" alt="` +
           product.description +
-          `" class="img-thumbnail">
+          `" class="img-thumbnail img-fluid">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
@@ -118,7 +118,7 @@ function showProductsList(array) {
           <div class="card shadow-sm">
             <img src="` +
           product.imgSrc +
-          `" class="img-fluid">
+          `" class="img-thumbnail img-fluid">
             <div class="card-body">
             <h2 class="mb-1 text-center">` +
           product.name +
@@ -144,6 +144,9 @@ function showProductsList(array) {
           </div>
         </div></a>
           `;
+      }
+      else {
+        htmlContentToAppend = `<div class="alert-danger text-center"> NO SE PUEDE DESPLEGAR EN MODO LISTA DEBIDO AL TAMAÑO DE SU PANTALLA</div>`
       }
     }
   }

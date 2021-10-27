@@ -12,6 +12,8 @@ const PRODUCT_INFO_COMMENTS_URL =
   "https://japdevdep.github.io/ecommerce-api/product/5678-comments.json";
 const CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/654.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
+var x = document.getElementById("topNav");
+var y = document.getElementById("topNav1");
 
 var showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -65,12 +67,29 @@ function desconectar() {
 
 function responsive() {
   var x = document.getElementById("topNav");
-  if (x.className === "site-header bg-dark py-1 container text-center justify-content-between") {
+  var y = document.getElementById("topNav1");
+  if(window.innerWidth < 800){
+  if (x.className === "site-header sticky-top bg-dark py-1"){
     x.className += " responsive";
-  } else {
-    x.className = "site-header bg-dark py-1 container text-center justify-content-between";
+    y.className = "container justify-content-between";
+  }
+  else{
+    x.className = "site-header sticky-top bg-dark py-1";
   }
 }
+
+  
+}
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth < 800) {
+    y.className = "container justify-content-between";
+  } else {
+    x.className = "site-header sticky-top bg-dark py-1";
+    y.className = "container d-flex flex-column flex-md-row justify-content-between";
+  }
+});
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -79,14 +98,19 @@ document.addEventListener("DOMContentLoaded", function (e) {
   if (usuario == null) {
     location.href = "login.html";
   } else {
-    location.href = "#"
+    location.href = "#";
   }
 
   if (usuario.img != undefined) {
     document.getElementById("my-profile").innerHTML =
-      `<img src="${usuario.img}" referrerpolicy="no-referrer" style="width: 25px;"> `+ ` ` + usuario.nombre;
+      `<img src="${usuario.img}" referrerpolicy="no-referrer" style="width: 25px;"> ` +
+      ` ` +
+      usuario.nombre;
   } else {
     document.getElementById("my-profile").innerHTML =
       `<i class="bi bi-person">  </i>` + usuario.nombre;
+  }
+  if(window.innerWidth < 800){
+    y.className = "container justify-content-between";
   }
 });

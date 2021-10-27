@@ -22,7 +22,7 @@ function insertProducts(array) {
             <div class="col justify-content-center" style="text-align: center;">` +
       item.name +
       `</div>                      
-            <div class="col"><div class="input-group mb-3">
+            <div class="col"><div class="row input-group mb-3">
               <button class="input-group-text" style="max-width: 40px;" id="` +
       item.name +
       `R" onclick="update('cant${i}','resta');"><i class="bi bi-dash-lg"></i></button>

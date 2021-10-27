@@ -52,9 +52,10 @@
   </head>
 
   <body>
-    <nav class="site-header sticky-top py-1 bg-dark" id="topNav">
+    <nav class="site-header sticky-top bg-dark py-1" id="topNav">
       <div
         class="container d-flex flex-column flex-md-row justify-content-between"
+        id="topNav1"
       >
         <button class="btn btn-dark" onclick="location.href = 'index.html'">
           <i class="bi bi-house-door"></i> Inicio
@@ -71,9 +72,8 @@
         <button class="btn btn-dark" onclick="location.href = 'sell.html'">
           <i class="bi bi-piggy-bank"></i> Vender
         </button>
-        <div class="btn-group">
+        <div class="btn-group" style="line-break: none">
           <button
-            type="button"
             id="my-profile"
             onclick="location.href = 'my-profile.html';"
             class="btn btn-dark"
@@ -81,7 +81,6 @@
             <i class="bi bi-person"></i>
           </button>
           <button
-            type="button"
             class="btn btn-dark dropdown-toggle dropdown-toggle-split"
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -89,7 +88,7 @@
           >
             <span class="sr-only">Toggle Dropdown</span>
           </button>
-          <div
+          <p
             class="dropdown-menu dropdown-menu-right"
             style="width: min-content"
           >
@@ -106,7 +105,7 @@
               style="width: 100%"
               ><i class="bi bi-cart" style="float: left"></i> Mi carrito</label
             >
-            <div class="dropdown-divider"></div>
+            <span class="dropdown-divider"></span>
             <label
               class="btn btn-light bg-white"
               onclick="desconectar();"
@@ -115,8 +114,15 @@
               ><i class="bi bi-box-arrow-right" style="float: left"></i> Cerrar
               sesión</label
             >
-          </div>
+          </p>
         </div>
+        <button
+          href="javascript:void(0);"
+          class="icon btn btn-dark"
+          onclick="responsive();"
+        >
+          <i class="bi bi-card-list"></i>
+        </button>
       </div>
     </nav>
     <br />
@@ -150,7 +156,9 @@
         </div>
         <div class="col-md-4 summary">
           <div class="row">
-            <div class="col"><h6><b>Resumen del pedido</b></h6></div>
+            <div class="col">
+              <h6><b>Resumen del pedido</b></h6>
+            </div>
             <div
               id="tipoMoneda"
               class="col"
@@ -204,7 +212,7 @@
           </form>
           <div class="row" id="adendaFinal"></div>
           <hr />
-          <div class="row"  id="total">
+          <div class="row" id="total">
             <div class="col">TOTAL PRICE</div>
             <div class="col text-right" id="totalPrice"></div>
           </div>
@@ -214,7 +222,7 @@
           <div class="row">
             <input
               type="text"
-              style="width: 88%; height: 40px;"
+              style="width: 88%; height: 40px"
               id="code"
               placeholder="Enter your code"
             /><label
