@@ -70,7 +70,7 @@ function showProductsList(array) {
       (contadorMax == undefined ||
         (contadorMax != undefined && parseInt(product.cost) <= contadorMax))
     ) {
-      if (estiloMuestra == "lista" && screen.innerWidth > 800) {
+      if (estiloMuestra == "lista" && window.innerWidth > 800) {
         htmlContentToAppend +=
           `
           <a href="product-info.html" class="list-group-item list-group-item-action">

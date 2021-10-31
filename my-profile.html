@@ -27,6 +27,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -47,6 +51,7 @@
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/dropzone.css" rel="stylesheet" />
     <link href="css/my-profile.css" rel="stylesheet" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
@@ -103,7 +108,7 @@
               style="width: 100%"
               ><i class="bi bi-cart" style="float: left"></i> Mi carrito</label
             >
-            <span class="dropdown-divider"></span>
+            <span class="dropdown-divider"> </span>
             <label
               class="btn btn-light bg-white"
               onclick="desconectar();"
@@ -124,9 +129,187 @@
       </div>
     </nav>
     <div class="container p-5">
-      <div class="card">
-        <div class="col-md-4"></div>
-        <div class="col-md-8"></div>
+      <div class="container rounded bg-white mb-3">
+        <div class="row">
+          <div class="col-md-3 border-right">
+            <div
+              class="d-flex flex-column align-items-center text-center p-3 py-4"
+            >
+              <div class="file-field">
+                <div class="mb-4">
+                  <label class="avatar-pic1" id="avatar-pic">
+                    <img
+                      src="img/avatar generico.jpg"
+                      class="rounded-circle z-depth-1-half avatar-pic"
+                      alt="example placeholder avatar"
+                      id="profilePicture"            
+                    />
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      id="imgupload"
+                      hidden
+                    />
+                  </label><br>
+                  <span class="labels" id="instruccion">Cambie su foto de perfil presionando aquí arriba.</span>
+                  <hr />
+                  <span id="username" class="h2"></span>
+                </div>
+              </div>
+              <div class="col mt-2 text-left">
+                <div class="row-md-6">
+                  <label class="labels">Nombre: </label><span id="nombre"></span
+                  ><input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre"
+                    value=""
+                    id="Nombre"
+                  />
+                </div>
+                <div class="row-md-6">
+                  <label class="labels">Apellido: </label
+                  ><span id="apellido"></span
+                  ><input
+                    type="text"
+                    class="form-control"
+                    value=""
+                    placeholder="Apellido"
+                    id="Apellido"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 border-right">
+            <div class="p-3 py-4">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <h4 class="text-right">Mi perfil</h4>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <label class="labels">Edad: </label><span id="edad"></span
+                  ><input
+                    type="number"
+                    class="form-control"
+                    placeholder="Edad"
+                    value=""
+                    id="Edad"
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Email: </label><span id="email"></span
+                  ><input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email"
+                    value=""
+                    id="Email"
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Dirección: </label
+                  ><span id="direccion"></span
+                  ><input
+                    type="text"
+                    class="form-control"
+                    placeholder="Dirección"
+                    value=""
+                    id="Direccion"
+                  />
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Código postal: </label
+                  ><span id="cp"></span
+                  ><input
+                    type="text"
+                    class="form-control"
+                    placeholder="Código Postal"
+                    value=""
+                    id="CP"
+                  />
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-12">
+                  <label class="labels">País: </label><span class="col" id="pais">                                   
+                  </span>         
+                    <select
+                      name="pais"
+                      id="Pais"
+                      class="form-control"
+                    >
+                      <option value="Elegir" hidden selected>
+                        Seleccione su país
+                      </option>
+                      <option value="Andorra" id="AD">Andorra</option>
+                      <option value="Argentina" id="AR">Argentina</option>
+                      <option value="Bolivia" id="BO">Bolivia</option>
+                      <option value="Brasil" id="BR">Brasil</option>
+                      <option value="Chile" id="CL">Chile</option>
+                      <option value="Colombia" id="CO">Colombia</option>
+                      <option value="Ecuador" id="EC">Ecuador</option>
+                      <option value="España" id="ES">España</option>
+                      <option value="México" id="MX">México</option>
+                      <option value="Paraguay" id="PY">Paraguay</option>
+                      <option value="Perú" id="PE">Perú</option>
+                      <option value="Uruguay" id="UY">Uruguay</option>
+                      <option value="Venezuela" id="VE">Venezuela</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                  <label class="labels">Celular: </label
+                  ><span id="celular"></span
+                  ><input
+                    type="tel"
+                    class="form-control"
+                    placeholder="Número de celular"
+                    value=""
+                    id="Celular"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="mt-5 text-center">
+                <button id="cancelar"
+                onclick="cancelar();"
+                class="btn btn-outline-dark">Cancelar</button>
+                <button
+                  class="btn btn-outline-primary profile-button"
+                  onclick="guardar()"
+                  type="button"
+                  id="guardar"
+                >
+                  Guardar
+                </button> 
+                <button class="btn btn-outline-secondary"
+                id="modificar"
+                type="button"
+                onclick="modificarDatos();">Modificar datos</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 py-4">
+              <div
+                class="
+                  d-flex
+                  justify-content-between
+                  align-items-center
+                  experience
+                "
+                
+              >Comentarios que has hecho en productos:
+              </div>
+              <br />
+              <div class="col-md-12" id="comentario">
+                
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <footer class="text-muted bg-light">
@@ -138,17 +321,6 @@
         </p>
       </div>
     </footer>
-    <div class="alert fade alert-success" role="alert" id="alertResult">
-      <span id="resultSpan"></span>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
     <div id="spinner-wrapper">
       <div class="lds-ring">
         <div></div>

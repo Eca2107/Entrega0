@@ -9,9 +9,12 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
     console.log("Image URL: " + profile.getImageUrl());
     console.log("Email: " + profile.getEmail());*/
     let usuario = {};
-    usuario.nombre = profile.getName();
+    usuario.username = profile.getName();
     usuario.estado = "online";
     usuario.img = profile.getImageUrl();
+    usuario.email = profile.getEmail();
+    usuario.nombre = profile.getGivenName();
+    usuario.apellido = profile.getFamilyName();
     //--------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage
   
@@ -45,7 +48,7 @@ function onSignIn(googleUser) {                            //Funcion de inicio d
         let usuario = {};
         if (response && !response.error) {
           
-        usuario.nombre = "/{person-id}/name";
+        usuario.username = "/{person-id}/name";
         usuario.estado = "online";
         usuario.img = "/{person-id}/picture";
         //--------->

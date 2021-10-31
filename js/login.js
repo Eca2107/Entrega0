@@ -34,7 +34,7 @@ function verificar() {
   else {
     //Más adelante voy a implementar un boton de recordarme, en este caso te recuerda siempre, en todos los casos
     //Y luego con el botón de desconectar y el de recordarme va a quedar totalmente funcional, chiche diría Fer
-    usuario.nombre = user.value;
+    usuario.username = user.value;
     usuario.estado = "online";
     //---------->
     localStorage.setItem("usuario", JSON.stringify(usuario)); //Guardo mi variable de objeto en Local Storage

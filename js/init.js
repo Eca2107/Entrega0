@@ -105,10 +105,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("my-profile").innerHTML =
       `<img src="${usuario.img}" referrerpolicy="no-referrer" style="width: 25px;"> ` +
       ` ` +
-      usuario.nombre;
+      usuario.username;
   } else {
     document.getElementById("my-profile").innerHTML =
-      `<i class="bi bi-person">  </i>` + usuario.nombre;
+      `<i class="bi bi-person">  </i>` + usuario.username;
   }
   if(window.innerWidth < 800){
     y.className = "container justify-content-between";

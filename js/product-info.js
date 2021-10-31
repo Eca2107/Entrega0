@@ -195,7 +195,7 @@ document.getElementById("enviar").addEventListener("click", () => {
           `
     <div class="container">
       <div class="row justify-content-between"><span><h6><b>` +
-          usuario.nombre +
+          usuario.username +
           `:</b></h6>` +
           stars(puntuacion) +
           `</span><span class="text-muted font-weight-light">` +
@@ -218,7 +218,7 @@ document.getElementById("enviar").addEventListener("click", () => {
         comments.push({
           score: puntuacion,
           description: comentarioEnviado,
-          user: usuario.nombre,
+          user: usuario.username,
           dateTime: fecha,
         });
         localStorage.setItem("comments", JSON.stringify(comments));

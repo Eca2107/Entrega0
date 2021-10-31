@@ -37,7 +37,7 @@ function insertProducts(array) {
               <div class="row justify-content-end">Precio por unidad:<br>
               <b><span id="currencycant${i}">` +
       item.currency +
-      `</span>  <span class="cant${i}unitCost">` +
+      `</span> <span class="cant${i}unitCost">` +
       item.unitCost +
       `</span></b></div>
             </div>
