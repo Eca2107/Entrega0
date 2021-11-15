@@ -50,7 +50,6 @@
     <link href="css/dropzone.css" rel="stylesheet" />
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
-
   <body>
     <nav class="site-header sticky-top bg-dark py-1" id="topNav">
       <div
@@ -192,8 +191,7 @@
           <hr />
           <div class="row" id="adenda"></div>
           <hr />
-          <form>
-            <h6>ENVÍO</h6>
+          <form class="needs-validation" novalidate>
             <p>Seleccione su tipo de envío</p>
             <div class="input-group mb-3">
               <select
@@ -208,15 +206,28 @@
               </select>
             </div>
             <p id="tipoEnvio"></p>
+            <div id="datosEnvio"></div>
             <hr />
+
+            <div class="row" id="adendaFinal"></div>
+            <hr />
+            <div class="row" id="total">
+              <div class="col">TOTAL PRICE</div>
+              <div class="col text-right" id="totalPrice"></div>
+            </div>
+            <hr />
+            <button
+              class="btn1"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              id="formaDePagoBTN"
+            >
+              Forma de Pago
+            </button><br>
+            <div id="formaDePago" class="col"></div>
+            <hr />
+            <button class="btn1" onclick="checkout();" type="submit" id="checkout">CHECKOUT</button>
           </form>
-          <div class="row" id="adendaFinal"></div>
-          <hr />
-          <div class="row" id="total">
-            <div class="col">TOTAL PRICE</div>
-            <div class="col text-right" id="totalPrice"></div>
-          </div>
-          <button class="btn1" onclick="checkout();">CHECKOUT</button>
           <hr />
           <p>CÓDIGO DE DESCUENTO</p>
           <div class="row">
@@ -231,6 +242,196 @@
               onclick="discountCode()"
               ><i class="bi bi-arrow-right-circle"></i
             ></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Seleccionar forma de pago
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <select id="metodopago" onchange="metodoPago();">
+              <option hidden selected>Seleccione método de pago:</option>
+              <option value="1">Tarjeta de crédito/débito</option>
+              <option value="2">Transferencia bancaria</option>
+            </select>
+            <div id="tarjeta" hidden>
+              <form class="needs-validation" novalidate disabled="disabled" id="credit">
+                <input
+                  class="cc-number"
+                  maxlength="16"
+                  minlength="16"
+                  name="credit-number"
+                  pattern="\d*"
+                  placeholder="Card Number"
+                  type="tel"
+                  id="cc-number"
+                  required
+                /><input
+                  class="cc-expires"
+                  maxlength="7"
+                  name="credit-expires"
+                  pattern="\d*"
+                  placeholder="MM / YY"
+                  type="tel"
+                  id="cc-expires"
+                  required
+                /><input
+                  class="cc-cvc"
+                  maxlength="3"
+                  minlength="3"
+                  name="credit-cvc"
+                  pattern="\d*"
+                  placeholder="CVC"
+                  type="tel"
+                  id="cc-cvc"
+                  required
+                />
+              
+            </div>
+            <div
+              id="paypal"
+              class="justify-content-center"
+              hidden
+              style="width: 50%"
+            >
+              <form
+                action="https://www.paypal.com/donate"
+                method="post"
+                target="_top"
+              >
+                <input type="hidden" name="business" value="YCGYQ785W4S32" />
+                <input type="hidden" name="no_recurring" value="1" />
+                <input
+                  type="hidden"
+                  name="item_name"
+                  value="Luciano se quiere armar una compu"
+                />
+                <input type="hidden" name="currency_code" value="USD" />
+                <input
+                  type="image"
+                  src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
+                  border="0"
+                  name="submit"
+                  title="PayPal - The safer, easier way to pay online!"
+                  alt="Donate with PayPal button"
+                />
+                <img
+                  alt=""
+                  border="0"
+                  src="https://www.paypal.com/en_UY/i/scr/pixel.gif"
+                  width="1"
+                  height="1"
+                />
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              onclick="formaDePago()"
+            >
+              Save changes
+            </button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="actDatos" tabindex="-1" role="dialog" aria-labelledby="actDatosLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="actDatosLabel">Actualiza tus datos para poder continuar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12">
+              <label class="labels">Dirección: </label
+              ><span id="direccion"></span
+              ><input
+                type="text"
+                class="form-control"
+                placeholder="Dirección"
+                value=""
+                id="Direccion"
+              />
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Código postal: </label
+              ><span id="cp"></span
+              ><input
+                type="text"
+                class="form-control"
+                placeholder="Código Postal"
+                value=""
+                id="CP"
+              />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <label class="labels">País: </label><span class="col" id="pais">                                   
+              </span>         
+                <select
+                  name="pais"
+                  id="Pais"
+                  class="form-control"
+                >
+                  <option value="Elegir" hidden selected>
+                    Seleccione su país
+                  </option>
+                  <option value="Andorra" id="AD">Andorra</option>
+                  <option value="Argentina" id="AR">Argentina</option>
+                  <option value="Bolivia" id="BO">Bolivia</option>
+                  <option value="Brasil" id="BR">Brasil</option>
+                  <option value="Chile" id="CL">Chile</option>
+                  <option value="Colombia" id="CO">Colombia</option>
+                  <option value="Ecuador" id="EC">Ecuador</option>
+                  <option value="España" id="ES">España</option>
+                  <option value="México" id="MX">México</option>
+                  <option value="Paraguay" id="PY">Paraguay</option>
+                  <option value="Perú" id="PE">Perú</option>
+                  <option value="Uruguay" id="UY">Uruguay</option>
+                  <option value="Venezuela" id="VE">Venezuela</option>
+                </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" id="guardarCambios" data-dismiss="modal" class="btn btn-primary">Guardar cambios</button>
           </div>
         </div>
       </div>

@@ -63,7 +63,8 @@ function showProductsList(array) {
     }
   });
 
-  for (product of array) {
+  for (let i = 0; i < array.length; i++) {
+    let product = array[i];
     if (
       (contadorMin == undefined ||
         (contadorMin != undefined && parseInt(product.cost) >= contadorMin)) &&
@@ -73,17 +74,17 @@ function showProductsList(array) {
       if (estiloMuestra == "lista" && window.innerWidth > 800) {
         htmlContentToAppend +=
           `
-          <a href="product-info.html" class="list-group-item list-group-item-action">
-        
-            <div class="row">
-                <div class="col-3">
+          
+          
+            <div class="row list-group-item list-group-item-action">
+                <div class="col-3"   onclick="location.href = 'product-info.html'">
                     <img src="` +
           product.imgSrc +
           `" alt="` +
           product.description +
           `" class="img-thumbnail img-fluid">
                 </div>
-                <div class="col">
+                <div class="col"   onclick="location.href = 'product-info.html'">
                     <div class="d-flex w-100 justify-content-between">
                         <h2 class="mb-1">` +
           product.name +
@@ -104,11 +105,11 @@ function showProductsList(array) {
           product.soldCount +
           ` vendidos</small>
                     </div>
-
-                </div>
+                    
+                </div><button class="btn btn-outline-dark" style="float:right;" onclick="agregarCarrito(${i}")><i class="bi bi-cart"></i> Agregar al carrito</button>
             </div>
         
-        </a>
+        
         `;
       } else if (estiloMuestra == "grilla") {
         htmlContentToAppend +=
@@ -140,18 +141,73 @@ function showProductsList(array) {
           product.soldCount +
           ` vendidos</small>
               </div>
-            </div>
+            </div></a>
+            <button class="btn btn-outline-dark" onclick=" agregarCarrito(${i})"><i class="bi bi-cart"></i> Agregar al carrito</button>
           </div>
-        </div></a>
+        </div>
           `;
-      }
-      else {
-        htmlContentToAppend = `<div class="alert-danger text-center"> NO SE PUEDE DESPLEGAR EN MODO LISTA DEBIDO AL TAMAÑO DE SU PANTALLA</div>`
+      } else {
+        htmlContentToAppend = `<div class="alert-danger text-center"> NO SE PUEDE DESPLEGAR EN MODO LISTA DEBIDO AL TAMAÑO DE SU PANTALLA</div>`;
       }
     }
   }
   document.getElementById("productos").innerHTML = htmlContentToAppend;
   hideSpinner();
+}
+
+function agregarCarrito(id) {
+  let carrito = [];
+  let item = {};
+  let pino = {
+    name: "Pino de olor para el auto",
+    unitCost: 100,
+    count: 0,
+    src: "img/tree1.jpg",
+    currency: "UYU",
+  };
+  let hay = false;
+  let hayPino = false;
+
+  if (localStorage.getItem("carrito") == null) {
+    item.name = currentProductsArray[id].name;
+    item.count = 1;
+    item.currency = currentProductsArray[id].currency;
+    item.src = currentProductsArray[id].imgSrc;
+    item.unitCost = currentProductsArray[id].cost;
+    pino.count = 1;
+    carrito.push(item);
+    carrito.push(pino);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  } else {
+    carrito = JSON.parse(localStorage.getItem("carrito"));
+    carrito.forEach((element) => {
+      if (element.name == currentProductsArray[id].name) {
+        hay = true;
+        element.count += 1;
+      } else if (element.name == "Pino de olor para el auto") {
+        element.count += 1;
+        hayPino = true;
+      }
+    });
+    if (hay == false) {
+      item.name = currentProductsArray[id].name;
+      item.count = 1;
+      item.currency = currentProductsArray[id].currency;
+      item.src = currentProductsArray[id].imgSrc;
+      item.unitCost = currentProductsArray[id].cost;
+      carrito.push(item);
+    }
+    if (hayPino == false) {
+      pino.count = 1;
+      carrito.push(pino);
+    }
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }
+  Swal.fire({
+    icon: "success",
+    title: "Listo",
+    text: "El producto seleccionado ha sido agregado al carrito; por su compre le regalaremos un pinito de olor para su vehículo.",
+  });
 }
 
 function sortAndShowProducts(sortCriteria, productsArray) {

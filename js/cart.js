@@ -4,6 +4,7 @@ let total = 0;
 let costoEnvio = 0;
 let unitCost = 0;
 let moneda = "";
+let usuario = JSON.parse(localStorage.getItem("usuario"));
 
 function insertProducts(array) {
   let htmlContentToAppend = "";
@@ -11,7 +12,7 @@ function insertProducts(array) {
 
   for (let i = 0; i < array.length; i++) {
     let item = array[i];
-    
+
     htmlContentToAppend +=
       `
       <div class="row w-100 border-bottom">
@@ -32,6 +33,7 @@ function insertProducts(array) {
               <button class="input-group-text" style="max-width: 40px;" id="` +
       item.name +
       `S" onclick="update('cant${i}','suma');"><i class="bi bi-plus-lg"></i></button>
+      
               </div></div>
             <div class="col">
               <div class="row justify-content-end">Precio por unidad:<br>
@@ -40,7 +42,7 @@ function insertProducts(array) {
       `</span> <span class="cant${i}unitCost">` +
       item.unitCost +
       `</span></b></div>
-            </div>
+            </div><button class="input-group-text" style="max-width: 40px;" onclick="eliminar(${i});"><i class="bi bi-trash"></i></button>
         </div>
       </div>     
     `;
@@ -89,10 +91,10 @@ function update(id, action) {
     cantidad--;
   } else if (action != null) {
     Swal.fire({
-      icon: 'error',
-      title: '?',
-      text: 'No podes poner cantidades negativas, a menos que nos quieras regalar el artículo',
-    })
+      icon: "error",
+      title: "?",
+      text: "No podes poner cantidades negativas, a menos que nos quieras regalar el artículo",
+    });
   }
 
   if (moneda == "UYU") {
@@ -139,12 +141,12 @@ function update(id, action) {
   document.getElementsByClassName(id)[0].innerHTML = "x" + cantidad;
   document.getElementsByClassName(id + "subTotal")[0].innerHTML =
     ` ` + cantidad * unitCost;
-    adenda();
+  adenda();
 }
 
 function updateMoneda() {
   let array = [];
-  for (let i = 0; i < itemsArray.articles.length; i++) {
+  for (let i = 0; i < itemsArray.length; i++) {
     array.push("cant" + i);
   }
   for (id of array) {
@@ -178,11 +180,21 @@ function tipoDeEnvio() {
   }
 
   adenda();
+
+  if (usuario.direccion != null && usuario.cp != null && usuario.pais != null) {
+    document.getElementById("datosEnvio").innerHTML = `
+    <p class="row">Direccion de envío: ${usuario.direccion}, ${usuario.cp}, ${usuario.pais}</p>
+    `;
+  } else {
+    document.getElementById(
+      "datosEnvio"
+    ).innerHTML = `<div class="alert-danger" style="text-align: center;">Por favor actualice su perfil<a href="" data-toggle="modal" data-target="#actDatos">aquí</a>para poder continuar con la compra</div>`;
+  }
 }
 
 function adenda() {
   subTotal = 0;
-  for (let i = 0; i < itemsArray.articles.length; i++) {
+  for (let i = 0; i < itemsArray.length; i++) {
     subTotal += parseFloat(
       document.getElementsByClassName("cant" + i + "subTotal")[0].innerText
     );
@@ -228,88 +240,187 @@ function adenda() {
     </div>
     </div>
   `;
-  total = subTotalPorCostoEnvio + subTotal
-  document.getElementById("totalPrice").innerHTML =`<b>`+
-    moneda + " " + total.toFixed(2);+`</b>`
-  
-    if( document.getElementById("code").value == "david" || document.getElementById("code").value == "David"){
-      document.getElementById("total").innerHTML = `
+  total = subTotalPorCostoEnvio + subTotal;
+  document.getElementById("totalPrice").innerHTML =
+    `<b>` + moneda + " " + total.toFixed(2);
+  +`</b>`;
+
+  if (
+    document.getElementById("code").value == "david" ||
+    document.getElementById("code").value == "David"
+  ) {
+    document.getElementById("total").innerHTML =
+      `
       <div class="row w-100">
       <div class="col">Descuento del 80%</div>
-      <div class="col text-right"><b>`+
-      moneda + " -" + (total*0.8).toFixed(2) +`</b></div>
+      <div class="col text-right"><b>` +
+      moneda +
+      " -" +
+      (total * 0.8).toFixed(2) +
+      `</b></div>
       </div><br>
       <div class="row w-100">
       <div class="col">TOTAL PRICE</div>
-      <div class="col text-right" id="totalPrice"><b>`+
-      moneda + " " + (total.toFixed(2) - total.toFixed(2)*0.8).toFixed(2)+`</b></div>
+      <div class="col text-right" id="totalPrice"><b>` +
+      moneda +
+      " " +
+      (total.toFixed(2) - total.toFixed(2) * 0.8).toFixed(2) +
+      `</b></div>
       </div>
       `;
-    }
+  }
 }
 
-function checkout() {
-  if (document.getElementById("inputGroupSelect01").value == "Tipo de envío..."){
-    document.getElementById("tipoEnvio").innerHTML = "Debe seleccionar un tipo de envío para poder continuar."
+function formaDePago() {
+  let formaDePago = document.getElementById("metodopago").value;
+
+  if (formaDePago == "1") {
+    document.getElementById("formaDePago").innerHTML = `
+    <p class="row">Ud. ha elegido tarjeta de crédito/débito</p>
+    <p class="row">Últimos 4 dígitos: **** **** **** ${document
+      .getElementById("cc-number")
+      .value.substr(12)}</p>    
+    `;
+  } else if (formaDePago == "2") {
+    document.getElementById("formaDePago").innerHTML = `
+    <p class="row">Ud. ha elegido transferencia bancaria</p>`;
   }
-  else{
+}
+
+document.getElementById("checkout").addEventListener("click", (evt) => {
+  evt.preventDefault();
+  checkout();
+});
+
+function checkout() {
+  if (
+    document.getElementById("inputGroupSelect01").value == "Tipo de envío..."
+  ) {
     Swal.fire({
-      icon: 'success',
-      title: 'Comprado',
-      text: 'Pronto implementaremos nuevas instancias de compra, como método de pago y datos de envío.'
-    })
+      icon: "error",
+      title: "Tipo de envío",
+      text: "Debe seleccionar un tipo de envío para poder continuar",
+    });
+  } else if (document.getElementById("formaDePago").innerHTML == "") {
+    Swal.fire({
+      icon: "error",
+      title: "Forma de Pago",
+      text: "Debe seleccionar un método de pago",
+    });
+  } else {
+    Swal.fire({
+      icon: "success",
+      title: "Comprado",
+      text: "Gracias por preferirnos!",
+    });
+  }
+}
+
+document.getElementById("formaDePagoBTN").addEventListener("click", (evt) => {
+  evt.preventDefault();
+});
+
+function metodoPago() {
+  let select = document.getElementById("metodopago").value;
+  if (select == "1") {
+    document.getElementById("paypal").hidden = true;
+    document.getElementById("tarjeta").hidden = false;
+  } else if (select == "2") {
+    document.getElementById("paypal").hidden = false;
+    document.getElementById("tarjeta").hidden = true;
   }
 }
 
 function discountCode() {
-  if( document.getElementById("code").value == "david" || document.getElementById("code").value == "David"){
+  if (
+    document.getElementById("code").value == "david" ||
+    document.getElementById("code").value == "David"
+  ) {
     Swal.fire({
-      icon: 'success',
-      title: '¡FELICIDADES!',
-      text: 'Ud. ha sido beneficiado con el descuento del nombre prohibido',
-      footer: 'No le diga nada al profe',
-      background: '#eee',
-  backdrop: `
+      icon: "success",
+      title: "¡FELICIDADES!",
+      text: "Ud. ha sido beneficiado con el descuento del nombre prohibido",
+      footer: "No le diga nada al profe",
+      background: "#eee",
+      backdrop: `
     rgba(255,255,255,0.4)
     url(https://acegif.com/wp-content/gif/confetti-25.gif)
     center
 
   `,
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+        popup: "animate__animated animate__fadeOutUp",
+      },
     });
 
-    document.getElementById("total").innerHTML = `
+    document.getElementById("total").innerHTML =
+      `
     <div class="row w-100">
     <div class="col">Descuento del 80%</div>
-    <div class="col text-right"><b>`+
-    moneda + " -" + (total*0.8).toFixed(2)+`</b></div>
+    <div class="col text-right"><b>` +
+      moneda +
+      " -" +
+      (total * 0.8).toFixed(2) +
+      `</b></div>
     </div><br>
     <div class="row w-100">
     <div class="col">TOTAL PRICE</div>
-    <div class="col text-right" id="totalPrice"><b>`+
-    moneda + " " + (total.toFixed(2) - total.toFixed(2)*0.8).toFixed(2)+`</b></div>
+    <div class="col text-right" id="totalPrice"><b>` +
+      moneda +
+      " " +
+      (total.toFixed(2) - total.toFixed(2) * 0.8).toFixed(2) +
+      `</b></div>
     </div>
     `;
-
   }
 }
+
+function eliminar(posicion) {
+  const removed = itemsArray.splice(posicion, 1);
+  localStorage.setItem("carrito", JSON.stringify(itemsArray));
+  insertProducts(itemsArray);
+  adenda();
+}
+
+document.getElementById("guardarCambios").addEventListener("click", () => {
+  //DIRECCION
+  if (document.getElementById("Direccion").value != "") {
+    usuario.direccion = document.getElementById("Direccion").value;
+    document.getElementById("Direccion").style = "";
+  } else {
+    document.getElementById("Direccion").style = "background-color: red;";
+  }
+  //CODIGO POSTAL
+  if (document.getElementById("CP").value != "") {
+    usuario.cp = document.getElementById("CP").value;
+    document.getElementById("CP").style = "";
+  } else {
+    document.getElementById("CP").style = "background-color: red;";
+  }
+  if (document.getElementById("Pais").value != "Elegir") {
+    usuario.pais = document.getElementById("Pais").value;
+    document.getElementById("Pais").style = "";
+  } else {
+    document.getElementById("Pais").style = "background-color: red;";
+  }
+  localStorage.setItem("usuario", JSON.stringify(usuario));
+  tipoDeEnvio();
+})
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(CART_INFO_URL).then(function (resultObj) {
-    if (resultObj.status === "ok") {
-      itemsArray = resultObj.data;
-
-      //Muestro los items cargados del JSON
-      insertProducts(itemsArray.articles);
+    if (resultObj.status === "ok" && localStorage.getItem("carrito") == null) {
+      localStorage.setItem("carrito", JSON.stringify(resultObj.data.articles));
     }
+
+    itemsArray = JSON.parse(localStorage.getItem("carrito"));
+    insertProducts(itemsArray);
     updateMoneda();
   });
 });

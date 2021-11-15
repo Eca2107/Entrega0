@@ -149,14 +149,14 @@ input:focus::-webkit-input-placeholder {
   color: #000;
 }
 
-a {
+/* a {
   color: black;
 }
 
 a:hover {
   color: black;
   text-decoration: none;
-}
+} */
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -167,3 +167,4 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
